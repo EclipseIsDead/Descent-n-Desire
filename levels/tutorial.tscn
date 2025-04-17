@@ -1,47 +1,46 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvdmhyopoi85x"]
+[gd_scene load_steps=7 format=3 uid="uid://dvdmhyopoi85x"]
 
-[ext_resource type="Shader" uid="uid://dajgeyy8n0wv8" path="res://shader/dithering.gdshader" id="1_c633x"]
 [ext_resource type="Script" uid="uid://cd3rp4chfdcgi" path="res://addons/level_block/level_block_node.gd" id="1_rbh7r"]
 [ext_resource type="Material" uid="uid://c71yladfjhgud" path="res://addons/level_block/default_material.tres" id="2_0fvvq"]
-[ext_resource type="Texture2D" uid="uid://bnd6fijx2oows" path="res://shader/palette_hollow.png" id="2_gdrka"]
 [ext_resource type="Texture2D" uid="uid://dul4gcwu55m0b" path="res://addons/level_block/example_tileset.png" id="3_aaho8"]
-[ext_resource type="Texture2D" uid="uid://dkuj80l4elyam" path="res://shader/bayer4tile8.png" id="3_vvqp3"]
 [ext_resource type="PackedScene" uid="uid://80twu47lg8f4" path="res://entities/player.tscn" id="4_c633x"]
+[ext_resource type="Shader" uid="uid://htt7nbhf78l4" path="res://shader/color_dither_post_3d.gdshader" id="5_aaho8"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bp3yb"]
-shader = ExtResource("1_c633x")
-shader_parameter/u_dither_tex = ExtResource("3_vvqp3")
-shader_parameter/u_color_tex = ExtResource("2_gdrka")
-shader_parameter/u_bit_depth = 32
-shader_parameter/u_contrast = 0.0
-shader_parameter/u_offset = 0.0
-shader_parameter/u_dither_size = 2
-
-[sub_resource type="Environment" id="Environment_gdrka"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rbh7r"]
+shader = ExtResource("5_aaho8")
 
 [node name="Tutorial" type="Node3D"]
 
-[node name="Dithering" type="SubViewport" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 513.0
+offset_bottom = 513.0
 
-[node name="ColorRect" type="ColorRect" parent="Dithering"]
-material = SubResource("ShaderMaterial_bp3yb")
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_gdrka")
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/CanvasLayer"]
+material = SubResource("ShaderMaterial_rbh7r")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.756977, -0.00964403, -2.08248)
 light_color = Color(0.991623, 0.404781, 2.69532e-06, 1)
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+[node name="OmniLight3D2" type="OmniLight3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.788045, -0.0141215, -2.13223)
 light_color = Color(0.991623, 0.404781, 2.69532e-06, 1)
 
-[node name="Cells" type="Node3D" parent="."]
+[node name="Cells" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
-[node name="LevelBlock" type="Node3D" parent="Cells"]
+[node name="LevelBlock" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
 texture_sheet = ExtResource("3_aaho8")
@@ -52,7 +51,7 @@ top_face = 0
 bottom_face = 0
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock2" type="Node3D" parent="Cells"]
+[node name="LevelBlock2" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -63,7 +62,7 @@ top_face = 0
 bottom_face = 0
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock3" type="Node3D" parent="Cells"]
+[node name="LevelBlock3" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -74,7 +73,7 @@ top_face = 0
 bottom_face = 0
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock4" type="Node3D" parent="Cells"]
+[node name="LevelBlock4" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -83,7 +82,7 @@ top_face = 4
 bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock5" type="Node3D" parent="Cells"]
+[node name="LevelBlock5" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -94,7 +93,7 @@ top_face = 4
 bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock6" type="Node3D" parent="Cells"]
+[node name="LevelBlock6" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -105,7 +104,7 @@ top_face = 4
 bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock7" type="Node3D" parent="Cells"]
+[node name="LevelBlock7" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -114,7 +113,7 @@ top_face = 4
 bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock8" type="Node3D" parent="Cells"]
+[node name="LevelBlock8" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -8)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -124,7 +123,7 @@ top_face = 4
 bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock9" type="Node3D" parent="Cells"]
+[node name="LevelBlock9" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -134,7 +133,7 @@ top_face = 4
 bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock10" type="Node3D" parent="Cells"]
+[node name="LevelBlock10" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -144,7 +143,7 @@ top_face = 4
 bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock11" type="Node3D" parent="Cells"]
+[node name="LevelBlock11" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -10)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -155,7 +154,7 @@ top_face = 4
 bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="LevelBlock12" type="Node3D" parent="Cells"]
+[node name="LevelBlock12" type="Node3D" parent="SubViewportContainer/SubViewport/Cells"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10)
 script = ExtResource("1_rbh7r")
 material = ExtResource("2_0fvvq")
@@ -166,4 +165,4 @@ top_face = 4
 bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
-[node name="Player" parent="." instance=ExtResource("4_c633x")]
+[node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_c633x")]
