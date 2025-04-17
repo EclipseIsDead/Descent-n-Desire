@@ -1,0 +1,169 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvdmhyopoi85x"]
+
+[ext_resource type="Shader" uid="uid://dajgeyy8n0wv8" path="res://shader/dithering.gdshader" id="1_c633x"]
+[ext_resource type="Script" uid="uid://cd3rp4chfdcgi" path="res://addons/level_block/level_block_node.gd" id="1_rbh7r"]
+[ext_resource type="Material" uid="uid://c71yladfjhgud" path="res://addons/level_block/default_material.tres" id="2_0fvvq"]
+[ext_resource type="Texture2D" uid="uid://bnd6fijx2oows" path="res://shader/palette_hollow.png" id="2_gdrka"]
+[ext_resource type="Texture2D" uid="uid://dul4gcwu55m0b" path="res://addons/level_block/example_tileset.png" id="3_aaho8"]
+[ext_resource type="Texture2D" uid="uid://dkuj80l4elyam" path="res://shader/bayer4tile8.png" id="3_vvqp3"]
+[ext_resource type="PackedScene" uid="uid://80twu47lg8f4" path="res://entities/player.tscn" id="4_c633x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bp3yb"]
+shader = ExtResource("1_c633x")
+shader_parameter/u_dither_tex = ExtResource("3_vvqp3")
+shader_parameter/u_color_tex = ExtResource("2_gdrka")
+shader_parameter/u_bit_depth = 32
+shader_parameter/u_contrast = 0.0
+shader_parameter/u_offset = 0.0
+shader_parameter/u_dither_size = 2
+
+[sub_resource type="Environment" id="Environment_gdrka"]
+
+[node name="Tutorial" type="Node3D"]
+
+[node name="Dithering" type="SubViewport" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Dithering"]
+material = SubResource("ShaderMaterial_bp3yb")
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gdrka")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.756977, -0.00964403, -2.08248)
+light_color = Color(0.991623, 0.404781, 2.69532e-06, 1)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.788045, -0.0141215, -2.13223)
+light_color = Color(0.991623, 0.404781, 2.69532e-06, 1)
+
+[node name="Cells" type="Node3D" parent="."]
+
+[node name="LevelBlock" type="Node3D" parent="Cells"]
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+east_face = 2
+south_face = 0
+west_face = 1
+top_face = 0
+bottom_face = 0
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock2" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+east_face = 6
+west_face = 6
+top_face = 0
+bottom_face = 0
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock3" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+east_face = 9
+west_face = 9
+top_face = 0
+bottom_face = 0
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock4" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+top_face = 4
+bottom_face = 5
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock5" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+south_face = 4
+west_face = 7
+top_face = 4
+bottom_face = 5
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock6" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+east_face = 7
+south_face = 4
+top_face = 4
+bottom_face = 5
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock7" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+top_face = 4
+bottom_face = 5
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock8" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -8)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+west_face = 7
+top_face = 4
+bottom_face = 5
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock9" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+east_face = 7
+top_face = 4
+bottom_face = 5
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock10" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+north_face = 3
+top_face = 4
+bottom_face = 5
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock11" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -10)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+north_face = 1
+west_face = 7
+top_face = 4
+bottom_face = 5
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="LevelBlock12" type="Node3D" parent="Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10)
+script = ExtResource("1_rbh7r")
+material = ExtResource("2_0fvvq")
+texture_sheet = ExtResource("3_aaho8")
+north_face = 2
+east_face = 7
+top_face = 4
+bottom_face = 5
+metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
+
+[node name="Player" parent="." instance=ExtResource("4_c633x")]
