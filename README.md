@@ -1,4 +1,4 @@
 # Descent & Desire
 
 ## Demo
-![xd](https://github.com/EclipseIsDead/Descent-n-Desire/blob/main/demos/DnD%20-%20Devlog%201.mp4)
+![Dev Log 1: Prototype](https://github.com/user-attachments/assets/c550d4b6-3eec-4b42-aa49-7cde2c8dc279)
