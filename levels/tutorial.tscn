@@ -1,22 +1,106 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvdmhyopoi85x"]
+[gd_scene load_steps=19 format=3 uid="uid://dvdmhyopoi85x"]
 
 [ext_resource type="Script" uid="uid://cd3rp4chfdcgi" path="res://addons/level_block/level_block_node.gd" id="1_rbh7r"]
 [ext_resource type="Material" uid="uid://c71yladfjhgud" path="res://addons/level_block/default_material.tres" id="2_0fvvq"]
 [ext_resource type="Texture2D" uid="uid://dul4gcwu55m0b" path="res://addons/level_block/example_tileset.png" id="3_aaho8"]
 [ext_resource type="PackedScene" uid="uid://80twu47lg8f4" path="res://entities/player.tscn" id="4_c633x"]
 [ext_resource type="Shader" uid="uid://htt7nbhf78l4" path="res://shader/color_dither_post_3d.gdshader" id="5_aaho8"]
+[ext_resource type="Texture2D" uid="uid://cskcths3mwn3s" path="res://assets/skeleton-Sheet.png" id="6_aaho8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rbh7r"]
 shader = ExtResource("5_aaho8")
 
+[sub_resource type="Environment" id="Environment_0fvvq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c633x"]
+atlas = ExtResource("6_aaho8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdrka"]
+atlas = ExtResource("6_aaho8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvqp3"]
+atlas = ExtResource("6_aaho8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp3yb"]
+atlas = ExtResource("6_aaho8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfmsd"]
+atlas = ExtResource("6_aaho8")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2yhp"]
+atlas = ExtResource("6_aaho8")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5h72f"]
+atlas = ExtResource("6_aaho8")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o146j"]
+atlas = ExtResource("6_aaho8")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkhgs"]
+atlas = ExtResource("6_aaho8")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qvtyd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c633x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdrka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvqp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp3yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfmsd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2yhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5h72f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o146j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkhgs")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 8.0
+}]
+
 [node name="Tutorial" type="Node3D"]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_right = 513.0
-offset_bottom = 513.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -400.0
+offset_right = 400.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+size = Vector2i(800, 800)
 render_target_update_mode = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
@@ -166,3 +250,35 @@ bottom_face = 5
 metadata/_custom_type_script = "uid://cd3rp4chfdcgi"
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_c633x")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_0fvvq")
+
+[node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SubViewportContainer/SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+pixel_size = 0.05
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_qvtyd")
+animation = &"Idle"
+autoplay = "Idle"
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": true,
+"layer_section": true,
+"output_section": true,
+"pending_changes": {},
+"slice_section": true
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"should_round_fps": true,
+"slice": "",
+"source": "res://assets/skeleton.aseprite"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "5aa31655a716f24158e2a720d110a00b"
